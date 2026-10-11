@@ -8,6 +8,7 @@ commands:
     description: Изменяет цвет ping'а предметов
     usage: /<command> [цвет/random]
     aliases: [pcolor, itemcolor]
+    permission: itemping.command.color
 
 permissions:
   itemping.command.color:
