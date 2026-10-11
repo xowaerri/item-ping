@@ -28,24 +28,26 @@ public class PingListener implements Listener {
         ItemStack item = e.getCurrentItem();
         if (item == null || item.getType().isAir()) return;
 
-        Component displayName = item.displayName();
-        TextColor itemColor = displayName.color();
-        if (itemColor == null) {
-            itemColor = PingColor.DEFAULT;
-        }
-
         e.setCancelled(true);
 
-        Component itemComponent = item.displayName()
+        Component displayName = item.displayName();
+        TextColor itemColor = displayName.color() != null ? displayName.color() : PingColor.DEFAULT;
+
+        Component itemComponent = displayName
                 .hoverEvent(item.asHoverEvent())
                 .color(itemColor);
 
-        Component message = Component.text(player.getName() + " показывает: ", pingColor.get(player))
-                .append(itemComponent);
-
         if (item.getAmount() > 1) {
-            message = message.append(Component.text(" x" + item.getAmount(), NamedTextColor.GRAY));
+            itemComponent = itemComponent.append(
+                    Component.text(" x" + item.getAmount(), NamedTextColor.GRAY));
         }
+
+        Component message = Component.translatable(
+                "itemping.ping",
+                pingColor.get(player),
+                Component.text(player.getName()),
+                itemComponent
+        );
 
         Bukkit.broadcast(message);
     }
