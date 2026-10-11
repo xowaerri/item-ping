@@ -1,5 +1,5 @@
 name: ItemPing
-version: 1.0
+version: 1.1.0
 main: org.xowa.itemping.ItemPing
 api-version: '1.21'
 
